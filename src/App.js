@@ -1,22 +1,85 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState,useEffect} from 'react';
 
-function App() {
+import Posts from './Posts';
+
+const  App =({initialcount})=> {
+
+  /* let [count, setCount] =useState(initialcount) */
+
+
+  const [state,setState] = useState({
+    count:initialcount,
+    user:"Frea"
+  })
+
+
+
+  const addonepost=()=>{
+    let newpost ={
+      name: 'habibuiiii 3',
+      body:' lorem lipsummajghsdfh kagsudfhaghsfd asdfg'
+    }
+    setposts([...posts,
+    newpost])
+  }
+
+  let [posts,setposts] = useState([
+    {
+      name: 'habibuiiii',
+      body:' lorem lipsummajghsdfh kagsudfhaghsfd asdfg'
+    },
+    {
+      
+      name: 'habibuiiii 2',
+      body:' lorem lipsummajghsdfh kagsudfhaghsfd asdfg'
+
+    }
+  ])
+
+
+
+  const removePosts=()=>{
+    setposts([])
+  }
+
+
+  useEffect(()=>{
+    console.log('Change on state')
+  },[state])
+
+
+    useEffect(()=>{
+    console.log('Change on post')
+  },[posts])
+
+
+
+  useEffect(()=>{
+console.log('mounted')
+  },[])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div >
+      <header >
+  <h4>Count: {state.count}</h4>
+  <h4>Count: {state.user}</h4>
+
+  <button onClick={()=>setState({ ...state,count:state.count+1})} >Add one +1</button>
+  <button onClick={()=>setState({ ...state,count:state.count-1})} >sub one -1</button>
+  <button onClick={removePosts} >Remove Posts</button>
+      
+      <hr />
+
+
+      <div>
+        {posts.map((item,i)=>(
+          <Posts item={item} key={i}/>
+        ))}
+      </div>
+
+
+      <button onClick={addonepost}>Add One More</button>
+
       </header>
     </div>
   );
